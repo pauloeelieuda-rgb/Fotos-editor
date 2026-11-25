@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111018"><meta name="description" content="Estúdio fotográfico inteligente">
+<link rel="manifest" href="manifest.json"><title>FotoPro Studio</title>
+<style>
+:root{--bg:#111018;--panel:#1c1a25;--line:#343140;--gold:#d9b66d;--muted:#aaa5b6;--white:#f8f6fb}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#30243b 0,transparent 35%),var(--bg);color:var(--white);font:15px Inter,system-ui,Arial}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px max(18px,calc((100vw - 1120px)/2));border-bottom:1px solid #ffffff16;position:sticky;top:0;background:#111018eF;backdrop-filter:blur(12px);z-index:3}
+.brand{font-weight:850;letter-spacing:.4px}.brand span{color:var(--gold)}button{border:0;border-radius:13px;padding:12px 16px;font-weight:750;cursor:pointer;background:linear-gradient(120deg,#f0d493,#bd9145);color:#1a1520}button.secondary{background:#292633;color:#eee;border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1120px;margin:auto;padding:30px 18px 70px}.hero{margin:12px 0 26px}.eyebrow{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.02;margin:10px 0}.hero p{color:var(--muted);max-width:680px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:linear-gradient(160deg,#211e2b,#191721);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 18px 50px #0003}.panel h2{font-size:17px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}.drop{min-height:185px;border:1.5px dashed #63566d;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;background:#ffffff04;gap:9px}.drop strong{font-size:15px}.drop small{color:var(--muted)}.symbol{font-size:32px;color:var(--gold)}input[type=file]{display:none}.preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.thumb{width:82px;height:82px;border-radius:12px;object-fit:cover;border:1px solid #ffffff25}.refthumb{max-width:100%;max-height:190px;border-radius:12px;object-fit:contain;margin-top:12px}
+.options{margin-top:18px}.options h2{margin:0 0 12px}.optiongrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.choice{background:#211e2a;border:1px solid var(--line);padding:13px;border-radius:14px}.choice label{display:flex;align-items:center;gap:8px;font-weight:700}.choice small{display:block;color:var(--muted);margin:7px 0 0 25px;line-height:1.35}.choice input{accent-color:#d9b66d}
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}.controls label{color:var(--muted);font-size:13px}.controls input[type=range]{width:130px;accent-color:var(--gold)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.status{margin-top:16px;color:var(--muted);font-size:13px;min-height:20px}.results{margin-top:28px}.results h2{font-size:22px}.resultgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}.result{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px}.result img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#0c0b10;border-radius:10px}.result p{font-size:12px;color:var(--muted)}.result button{width:100%;margin-top:6px}.note{color:var(--muted);font-size:12px;line-height:1.5;margin-top:16px}.pill{display:inline-block;color:#e9d39e;background:#d9b66d1b;border:1px solid #d9b66d55;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800}
+footer{text-align:center;color:#777181;padding:22px;font-size:12px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.optiongrid{grid-template-columns:1fr}.hero{margin-top:5px}header{padding:14px 18px}}
+</style></head>
+<body>
+<header><div class="brand">✦ FOTO<span>PRO</span> STUDIO</div><button class="secondary" id="installBtn" hidden>＋ INSTALAR</button></header>
+<main>
+<section class="hero"><div class="eyebrow">Seu estúdio fotográfico inteligente</div><h1>Suas fotos.<br><span style="color:var(--gold)">Um acabamento profissional.</span></h1><p>Envie até 20 fotos e uma referência. O estúdio usa a referência para orientar o tratamento de luz, cor e contraste — preservando a imagem original, sem trocar pessoas ou cenários.</p><span class="pill">EDIÇÃO EM LOTE · ATÉ 20 FOTOS</span></section>
+<section class="grid">
+ <div class="panel"><h2>01 · Suas fotografias</h2><p class="sub">Escolha de 1 a 20 fotos ou capture diretamente pela câmera.</p><label class="drop" for="photos"><span class="symbol">▧</span><strong>Selecionar fotografias</strong><small>JPG, PNG ou WEBP · máximo 20 imagens</small><button type="button" class="secondary" onclick="document.getElementById('photos').click()">ESCOLHER FOTOS</button></label><input id="photos" type="file" accept="image/*" multiple><div class="actions"><button class="secondary" type="button" id="cameraBtn">◉ TIRAR FOTO</button><input id="camera" type="file" accept="image/*" capture="environment" hidden></div><div class="preview" id="photoPreview"></div></div>
+ <div class="panel"><h2>02 · Foto de referência</h2><p class="sub">Uma foto com o estilo de luz, cor e acabamento que você deseja.</p><label class="drop" for="reference"><span class="symbol">✧</span><strong>Adicionar referência</strong><small>O sistema analisará o estilo visual desta imagem</small><button type="button" class="secondary" onclick="document.getElementById('reference').click()">ESCOLHER REFERÊNCIA</button></label><input id="reference" type="file" accept="image/*"><div id="refPreview"></div></div>
+</section>
+<section class="panel options"><h2>03 · Personalize o resultado</h2><p class="sub">Escolha o acabamento. O desfoque imita a profundidade de campo (efeito bokeh) de uma lente de retrato.</p>
+<div class="optiongrid">
+ <div class="choice"><label><input type="checkbox" id="match" checked> Combinar com referência</label><small>Usa a referência como guia para o tratamento de cor e luz.</small></div>
+ <div class="choice"><label><input type="checkbox" id="blur"> Fundo desfocado (bokeh)</label><small>Desfoque de fundo estilo lente de retrato. Requer separação correta entre pessoa e fundo.</small></div>
+ <div class="choice"><label><input type="checkbox" id="sharpen" checked> Nitidez aprimorada</label><small>Realce moderado de detalhes, sem exagerar na textura.</small></div>
+</div>
+<div class="controls"><label for="blurAmount">Intensidade do desfoque</label><input id="blurAmount" type="range" min="2" max="18" value="8"><span id="blurValue">8</span><label for="quality">Saída</label><select id="quality" style="background:#292633;color:white;border:1px solid var(--line);padding:9px;border-radius:10px"><option value="original">Alta qualidade · tamanho original</option><option value="2">Ampliar 2× (interpolação)</option><option value="4">Ampliar 4× (interpolação)</option></select></div>
+<div class="actions"><button id="editBtn" disabled>✦ EDITAR FOTOGRAFIAS</button><button class="secondary" id="clearBtn">LIMPAR</button></div><div class="status" id="status">Adicione suas fotos e a referência para começar.</div>
+<p class="note">Privacidade: o processamento básico acontece neste navegador. O efeito bokeh automático por recorte de pessoa e a ampliação real com reconstrução de detalhes exigem um modelo de segmentação/upscaling dedicado; esta versão não inventa esses resultados. A ampliação 2×/4× apenas aumenta as dimensões por interpolação e não recupera detalhes que não existiam.</p>
+</section>
+<section class="results" id="results" hidden><h2>04 · Suas fotos editadas</h2><p class="sub">Confira e baixe individualmente ou todas em sequência.</p><div class="actions"><button id="downloadAll" class="secondary">BAIXAR TODAS</button></div><div class="resultgrid" id="resultGrid"></div></section>
+</main><footer>FOTOPRO STUDIO · Tratamento fotográfico com respeito à imagem original</footer>
+<script>
+const $=id=>document.getElementById(id);let photos=[],reference=null,outputs=[],deferred=null;
+function loadImage(file){return new Promise((resolve,reject)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>resolve({im,url:u});im.onerror=reject;im.src=u})}
+function update(){ $('editBtn').disabled=!(photos.length&&reference);$('status').textContent=photos.length?`${photos.length} foto(s) selecionada(s).`:'Adicione suas fotos e a referência para começar.'}
+function previewPhotos(){ $('photoPreview').innerHTML='';photos.forEach(f=>{const im=document.createElement('img');im.className='thumb';im.src=URL.createObjectURL(f);$('photoPreview').append(im)});update()}
+$('photos').onchange=e=>{photos=Array.from(e.target.files).slice(0,20);previewPhotos();if(e.target.files.length>20)$('status').textContent='Limite de 20 fotos: as primeiras 20 foram selecionadas.'};
+$('cameraBtn').onclick=()=>$('camera').click();$('camera').onchange=e=>{if(e.target.files[0]&&photos.length<20){photos.push(e.target.files[0]);previewPhotos()}};
+$('reference').onchange=e=>{reference=e.target.files[0]||null;$('refPreview').innerHTML='';if(reference){const im=document.createElement('img');im.className='refthumb';im.src=URL.createObjectURL(reference);$('refPreview').append(im)}update()};
+$('blurAmount').oninput=e=>$('blurValue').textContent=e.target.value;
+function canvasFor(img,w=img.naturalWidth,h=img.naturalHeight){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
+function stats(img){const c=canvasFor(img,120,120),x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,120,120);const d=x.getImageData(0,0,120,120).data;let s=[0,0,0],n=0;for(let i=0;i<d.length;i+=4){s[0]+=d[i];s[1]+=d[i+1];s[2]+=d[i+2];n++}return s.map(v=>v/n)}
+async function processPhoto(file,refStats){const {im}=await loadImage(file);let scale=$('quality').value==='original'?1:Number($('quality').value);let w=Math.round(im.naturalWidth*scale),h=Math.round(im.naturalHeight*scale);const c=canvasFor(im,w,h),ctx=c.getContext('2d');ctx.drawImage(im,0,0,w,h);
+let imgData=ctx.getImageData(0,0,w,h),d=imgData.data;let avg=[0,0,0],count=0;for(let i=0;i<d.length;i+=4){avg[0]+=d[i];avg[1]+=d[i+1];avg[2]+=d[i+2];count++}avg=avg.map(v=>v/count);
+for(let i=0;i<d.length;i+=4){for(let k=0;k<3;k++){let v=d[i+k]; // mild contrast and tonal balancing
+v=(v-128)*1.07+128+((125-avg[k])*.10);
+if($('match').checked&&refStats){let delta=(refStats[k]-avg[k])*.12;v+=delta}
+d[i+k]=Math.max(0,Math.min(255,v));}}
+ctx.putImageData(imgData,0,0);
+if($('sharpen').checked){const src=ctx.getImageData(0,0,w,h),out=ctx.createImageData(w,h),a=src.data,b=out.data;for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){let p=(y*w+x)*4;for(let k=0;k<3;k++){let v=a[p+k]*1.18-(a[p-4+k]+a[p+4+k]+a[p-w*4+k]+a[p+w*4+k])*.045;b[p+k]=Math.max(0,Math.min(255,v))}b[p+3]=a[p+3]}ctx.putImageData(out,0,0)}
+return new Promise(resolve=>c.toBlob(blob=>resolve({blob,url:URL.createObjectURL(blob),name:file.name.replace(/\.[^.]+$/,'')+'-fotopro.jpg'}),'image/jpeg',.94))}
+$('editBtn').onclick=async()=>{outputs=[];$('editBtn').disabled=true;$('status').textContent='Analisando a referência e processando suas fotos…';let rs=null;if(reference){const {im}=await loadImage(reference);rs=stats(im)}for(let i=0;i<photos.length;i++){ $('status').textContent=`Editando foto ${i+1} de ${photos.length}…`;outputs.push(await processPhoto(photos[i],rs))}render();$('status').textContent=`Concluído: ${outputs.length} foto(s) processada(s).`; $('editBtn').disabled=false};
+function render(){$('results').hidden=false;$('resultGrid').innerHTML='';outputs.forEach(o=>{const div=document.createElement('div');div.className='result';const im=document.createElement('img');im.src=o.url;const p=document.createElement('p');p.textContent=o.name;const b=document.createElement('button');b.textContent='BAIXAR FOTO';b.onclick=()=>download(o);div.append(im,p,b);$('resultGrid').append(div)})}
+function download(o){const a=document.createElement('a');a.href=o.url;a.download=o.name;a.click()}
+$('downloadAll').onclick=()=>outputs.forEach((o,i)=>setTimeout(()=>download(o),i*350));
+$('clearBtn').onclick=()=>{photos=[];reference=null;outputs=[];$('photos').value='';$('camera').value='';$('reference').value='';$('photoPreview').innerHTML='';$('refPreview').innerHTML='';$('results').hidden=true;update()};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('installBtn').hidden=false});$('installBtn').onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null}else alert('Para instalar, abra o menu do navegador e escolha “Adicionar à tela inicial”.')};
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
